@@ -4,7 +4,7 @@ type init, domain;
 unconfined_domain(init)
 tmpfs_domain(init)
 
-allow init self:capability { sys_rawio mknod };
+allow init self:capability { sys_rawio mknod sys_module };
 
 # Run helpers from / or /system without changing domain.
 # We do not include exec_type here since generally those
