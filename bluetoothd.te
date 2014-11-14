@@ -1,0 +1,40 @@
+type bluetoothd, domain;
+type bluetoothd_exec, exec_type, file_type;
+
+# FIXME: disabling this is the final goal
+permissive bluetoothd;
+
+# Start bluetoothd from init
+# allow init:bluetoothd_exec:file execute_no_trans;
+# its resolved to: allow init bluetoothd_exec:file { getattr open read execute };
+init_daemon_domain(bluetoothd)
+
+# FIXME: this does not seams to work for logwrapper
+domain_auto_trans(init, bluetoothd_exec, bluetoothd)
+# this is reported but neverallowed:
+# allow bluetoothd system_file:file entrypoint;
+
+# Data file accesses
+allow bluetoothd bluetooth_data_file:dir w_dir_perms;
+allow bluetoothd bluetooth_data_file:notdevfile_class_set { create_file_perms link_file_perms };
+
+# TODO: Verify if this can be narrowed
+allow bluetoothd self:capability { setuid net_admin net_bind_service };
+allow bluetoothd kernel:system module_request;
+
+# TODO: this may be romoved for userbuild where we don't use bluetoothd_wrapper
+allow bluetoothd bluetoothd_exec:file execute_no_trans;
+
+# TODO: minimize this set
+allow bluetoothd self:socket { create_socket_perms accept listen recv_msg send_msg lock recvfrom sendto name_bind relabelfrom relabelto };
+
+# stream sockets
+allow bluetoothd { bluetooth mediaserver }:unix_stream_socket connectto;
+allow bluetooth bluetoothd:unix_stream_socket rw_socket_perms;
+allow bluetooth bluetoothd:fd use;
+
+# needs /system/bin/log access
+allow bluetoothd devpts:chr_file rw_file_perms;
+
+# access to uhid device
+allow bluetoothd uhid_device:chr_file rw_file_perms;
