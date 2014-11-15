@@ -33,6 +33,10 @@ allow bluetoothd { bluetooth mediaserver }:unix_stream_socket connectto;
 allow bluetooth bluetoothd:unix_stream_socket rw_socket_perms;
 allow bluetooth bluetoothd:fd use;
 
+#This we might should put to mediaserver.te ?
+allow mediaserver bluetoothd:fd use;
+allow mediaserver bluetoothd:socket rw_socket_perms;
+
 # needs /system/bin/log access
 allow bluetoothd devpts:chr_file rw_file_perms;
 
