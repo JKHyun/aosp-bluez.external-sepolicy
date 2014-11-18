@@ -28,10 +28,19 @@ allow bluetoothd bluetoothd_exec:file execute_no_trans;
 # TODO: minimize this set
 allow bluetoothd self:socket { create_socket_perms accept listen recv_msg send_msg lock recvfrom sendto name_bind relabelfrom relabelto };
 
-# stream sockets
+# Allow clients to use a socket provided by the bluetooth app.
 allow bluetoothd { bluetooth mediaserver }:unix_stream_socket connectto;
-allow bluetooth bluetoothd:unix_stream_socket rw_socket_perms;
+
+# Allow system app to use sockets and fds
 allow bluetooth bluetoothd:fd use;
+allow bluetooth bluetoothd:unix_stream_socket rw_socket_perms;
+
+# Allow user bluetooth apps to use sockets and fds
+allow bluetoothdomain bluetoothd:fd use;
+allow bluetoothdomain bluetoothd:unix_stream_socket { getopt setopt getattr read write ioctl shutdown };
+
+# Other domains that can create and use bluetooth sockets.
+allow bluetoothdomain self:socket create_socket_perms;
 
 #This we might should put to mediaserver.te ?
 allow mediaserver bluetoothd:fd use;
