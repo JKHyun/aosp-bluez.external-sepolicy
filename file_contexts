@@ -252,5 +252,5 @@
 #############################
 # Bluetooth daemon
 /system/bin/bluetoothd             u:object_r:bluetoothd_exec:s0
-/system/bin/bluetoothd-main        u:object_r:bluetoothd_exec:s0
-/system/bin/bluetoothd-snoop       u:object_r:bluetoothd_exec:s0
+/system/bin/bluetoothd-main        u:object_r:bluetoothd_main_exec:s0
+/system/bin/bluetoothd-snoop       u:object_r:bluetoothd_snoop_exec:s0
