@@ -1,11 +1,15 @@
 type bluetoothd_snoop, domain;
 type bluetoothd_snoop_exec, exec_type, file_type;
 
-# FIXME: this is still here because of logwrapper
-permissive bluetoothd;
-
 # Start bluetoothd_snoop from init
 init_daemon_domain(bluetoothd_snoop)
+
+# logwrapper domain transition
+domain_auto_trans(logwrapper, bluetoothd_snoop_exec, bluetoothd_snoop)
+allow bluetoothd_snoop logwrapper:fd use;
+
+# needs /system/bin/log access
+allow bluetoothd_snoop devpts:chr_file rw_file_perms;
 
 # directory search and read caps
 allow bluetoothd_snoop self:capability dac_read_search;
