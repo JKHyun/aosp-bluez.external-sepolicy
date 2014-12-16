@@ -2,9 +2,6 @@ type bluetoothd, domain;
 type bluetoothd_exec, exec_type, file_type;
 type bluetoothd_main_exec, exec_type, file_type;
 
-# FIXME: this is still here because of logwrapper
-permissive bluetoothd;
-
 # Start bluetoothd from init
 init_daemon_domain(bluetoothd)
 

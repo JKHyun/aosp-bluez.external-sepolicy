@@ -1,9 +1,6 @@
 type bluetoothd_snoop, domain;
 type bluetoothd_snoop_exec, exec_type, file_type;
 
-# FIXME: this is still here because of logwrapper
-permissive bluetoothd;
-
 # Start bluetoothd_snoop from init
 init_daemon_domain(bluetoothd_snoop)
 
