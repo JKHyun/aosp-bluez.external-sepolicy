@@ -2,13 +2,11 @@ type bluetoothd, domain;
 type bluetoothd_exec, exec_type, file_type;
 type bluetoothd_main_exec, exec_type, file_type;
 
+# FIXME: this is still here because of logwrapper
+permissive bluetoothd;
+
 # Start bluetoothd from init
 init_daemon_domain(bluetoothd)
-
-# logwrapper domain transition
-domain_auto_trans(logwrapper, bluetoothd_main_exec, bluetoothd)
-domain_auto_trans(logwrapper, bluetoothd_exec, bluetoothd)
-allow bluetoothd logwrapper:fd use;
 
 # Data file accesses
 allow bluetoothd bluetooth_data_file:dir w_dir_perms;
