@@ -1,7 +1,0 @@
-type logwrapper, domain;
-type logwrapper_exec, exec_type, file_type;
-
-# needs /system/bin/log access
-allow logwrapper devpts:chr_file rw_file_perms;
-
-init_daemon_domain(logwrapper)
