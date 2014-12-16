@@ -49,3 +49,4 @@ allow bluetoothd uhid_device:chr_file rw_file_perms;
 
 # tethering
 allow bluetoothd self:udp_socket create_socket_perms;
+allow bluetoothd self:tcp_socket { create ioctl };
